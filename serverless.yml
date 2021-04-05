@@ -1,0 +1,67 @@
+service: serverless-clean-architecture-nodejs
+
+frameworkVersion: '2'
+
+provider:
+  name: aws
+  region: eu-west-3
+  runtime: nodejs12.x
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: 
+        - "arn:aws:dynamodb:eu-west-3:*:table/todos"
+        - "arn:aws:dynamodb:eu-west-3:*:table/todos/index/*"
+
+functions:
+  createTodo:
+    handler: src/serverless/todos/createTodo/createTodo.handler
+    events:
+      - http:
+          path: todos
+          method: post
+          cors: true
+
+resources:
+  Resources:
+    TodosDynamoDbTable:
+      Type: 'AWS::DynamoDB::Table'
+      DeletionPolicy: Retain
+      Properties:
+        AttributeDefinitions:
+          -
+            AttributeName: id
+            AttributeType: S
+          -
+            AttributeName: name
+            AttributeType: S      
+        KeySchema:
+          -
+            AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: todos
+        GlobalSecondaryIndexes:
+          - 
+            IndexName: "todos_name_gsi"
+            KeySchema: 
+              - 
+                AttributeName: "name"
+                KeyType: "HASH"           
+            Projection: 
+              NonKeyAttributes: 
+                - "id"
+                - "name"   
+              ProjectionType: "INCLUDE"
+            ProvisionedThroughput: 
+              ReadCapacityUnits: "1"
+              WriteCapacityUnits: "1"
+

@@ -1,0 +1,19 @@
+{
+  "name": "todos-api",
+  "description": "",
+  "scripts": {
+    "test": "mocha 'test/**/*.js' --recursive --timeout 8000"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "mocha": "^8.3.2",
+    "sinon": "^10.0.0"
+  },
+  "dependencies": {
+    "@middy/core": "^2.0.0",
+    "@middy/http-error-handler": "^2.0.0",
+    "@middy/http-json-body-parser": "^2.0.0",
+    "@middy/validator": "^2.0.0",
+    "uuid": "^8.3.2"
+  }
+}
