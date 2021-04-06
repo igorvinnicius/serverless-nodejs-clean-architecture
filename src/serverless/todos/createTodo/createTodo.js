@@ -1,28 +1,29 @@
 'use strict';
 
-const TodosRepository = require('../../../frameworks/persistence/dynamoDB/todosRepository');
-const AddTodoUseCase = require('../../../application/use_cases/todos/addTodo/addTodoUseCase');
 const AddTodoInput = require ('../../../application/use_cases/todos/addTodo/addTodoInput');
-const RequestsService = require('../../../frameworks/requests/requestsService');
-const middyHandler = require('../../../frameworks/requests/middyHandler');
 const inputSchema = require('../../../serverless/todos/createTodo/inputSchema');
+const container = require('../../../frameworks/dependency_injection/container');
 
-const todosRepository = new TodosRepository();
-const addTodoUseCase = new AddTodoUseCase(todosRepository);
-const requestsService = new RequestsService();
+const addTodoUseCase = container.resolve('addTodoUseCase');
+const requestsService = container.resolve('requestService');
+const middyHandler = container.resolve('middyHandler');
+
+console.log(addTodoUseCase);
+
+console.log(requestsService);
 
 const baseHandler = async (event) => {
   
     const { name } = event.body;   
 
     const addTodoInput = new AddTodoInput(name);  
-    
+
     return await requestsService.handle(async () => {
         
         return await addTodoUseCase.execute(addTodoInput);
         
     });
 };
-   
+
 const handler = middyHandler(baseHandler, inputSchema);   
 module.exports = { handler }

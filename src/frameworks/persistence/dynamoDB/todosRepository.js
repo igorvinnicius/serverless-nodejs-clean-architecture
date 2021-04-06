@@ -1,24 +1,23 @@
-const uuid = require('uuid');
-const AWS = require('aws-sdk');
-
-const dynamoDb = new AWS.DynamoDB.DocumentClient();
-
-const tableName = 'todos';
-
 module.exports = class TodosRepository {
+
+    constructor(dependencies) {
+        this.dynamoDb = new dependencies.AWS.DynamoDB.DocumentClient();
+        this.uuid = dependencies.uuid;
+        this.tableName = 'todos';
+    }
 
     async add(todo) {       
 
         console.log('Executing repo...');
 
-        todo.id = uuid.v1();        
+        todo.id = this.uuid.v1();        
 
         const params = {
-            TableName: tableName,
+            TableName: this.tableName,
             Item: todo
         };        
 
-        return await dynamoDb.put(params)
+        return await this.dynamoDb.put(params)
         .promise()
         .then((data) => {            
             console.log('Success repo...');            
@@ -36,14 +35,14 @@ module.exports = class TodosRepository {
         console.log(name);
 
         var params = {
-            TableName: tableName,
+            TableName: this.tableName,
             IndexName: 'todos_name_gsi',
             KeyConditionExpression: '#name = :name',
             ExpressionAttributeNames: { "#name": "name" },
             ExpressionAttributeValues: { ':name': name }             
         };
         
-        return  await dynamoDb.query(params)
+        return  await this.dynamoDb.query(params)
         .promise()
         .then((data) => {            
             console.log('Success from index query...');       

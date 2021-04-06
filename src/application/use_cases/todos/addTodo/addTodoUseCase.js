@@ -3,13 +3,15 @@ const DuplicateError = require('../../../errors/duplicateError');
 
 module.exports = class AddTodoUseCase {
 
-    constructor(todosRepository) {
-        this.todosRepository = todosRepository;
+    constructor(dependencies) {
+        this.todosRepository = dependencies.todosRepository;
     }
 
     async execute(addTodoInput) {               
 
         console.log('Executing use case...')
+
+        console.log(this.todosRepository);
 
         const todo = await this.todosRepository.getByName(addTodoInput.name);
 
