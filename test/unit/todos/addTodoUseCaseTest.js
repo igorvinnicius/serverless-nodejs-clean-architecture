@@ -1,11 +1,11 @@
-import expect from 'chai';
-import sinon from 'sinon';
+const expect = require('chai');
+const sinon = require('sinon');
 
 
-import Todo from '../../../src/entities/todo.js';
-import AddTodoUseCase from '../../../src/application/use_cases/todos/addTodo/addTodoUseCase.js';
-import AddTodoInput from '../../../src/application/use_cases/todos/addTodo/addTodoInput.js';
-import TodosRepository from '../../../src/application/contracts/repositories/todosRepository.js';
+const Todo = require('../../../src/entities/todo.js');
+const AddTodoUseCase = require('../../../src/application/use_cases/todos/addTodo/addTodoUseCase.js');
+const AddTodoInput = require('../../../src/application/use_cases/todos/addTodo/addTodoInput.js');
+const TodosRepository = require('../../../src/application/contracts/repositories/todosRepository.js');
 
 describe('Add Todo Use Case', () => {
 
@@ -54,7 +54,7 @@ describe('Add Todo Use Case', () => {
         }
         catch (err) {            
             expect.expect(err.name).to.be.equal('DuplicateError');
-            expect.expect(err.message).to.be.equal('Category name already exists.');
+            expect.expect(err.message).to.be.equal('Todo name already exists.');
         }
        
     });

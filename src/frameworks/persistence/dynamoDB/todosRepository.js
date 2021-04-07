@@ -6,9 +6,7 @@ module.exports = class TodosRepository {
         this.tableName = 'todos';
     }
 
-    async add(todo) {       
-
-        console.log('Executing repo...');
+    async add(todo) {               
 
         todo.id = this.uuid.v1();        
 
@@ -19,8 +17,7 @@ module.exports = class TodosRepository {
 
         return await this.dynamoDb.put(params)
         .promise()
-        .then((data) => {            
-            console.log('Success repo...');            
+        .then(() => {                                  
             return todo;
         })
         .catch((err) => {
@@ -30,9 +27,6 @@ module.exports = class TodosRepository {
     }
 
     async getByName(name) {
-
-        console.log('Executing index query...');
-        console.log(name);
 
         var params = {
             TableName: this.tableName,
@@ -45,8 +39,6 @@ module.exports = class TodosRepository {
         return  await this.dynamoDb.query(params)
         .promise()
         .then((data) => {            
-            console.log('Success from index query...');       
-            
             return data.Count == 0 ? null : data.Items[0];                
         })
         .catch((err) => {

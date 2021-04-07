@@ -7,15 +7,9 @@ module.exports = class AddTodoUseCase {
         this.todosRepository = todosRepository;
     }
 
-    async execute(addTodoInput) {               
+    async execute(addTodoInput) {                      
 
-        console.log('Executing use case...')
-
-        console.log(this.todosRepository);
-
-        const todo = await this.todosRepository.getByName(addTodoInput.name);
-
-        console.log(todo);
+        const todo = await this.todosRepository.getByName(addTodoInput.name);        
 
         if (todo) {
             throw new DuplicateError('Todo name already exists.');
