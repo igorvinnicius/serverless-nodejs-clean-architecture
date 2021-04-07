@@ -1,8 +1,8 @@
 module.exports = class TodosRepository {
 
-    constructor(dependencies) {
-        this.dynamoDb = new dependencies.AWS.DynamoDB.DocumentClient();
-        this.uuid = dependencies.uuid;
+    constructor(AWS, uuid) {
+        this.dynamoDb = new AWS.DynamoDB.DocumentClient();
+        this.uuid = uuid;
         this.tableName = 'todos';
     }
 

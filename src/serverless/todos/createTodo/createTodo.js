@@ -8,10 +8,6 @@ const addTodoUseCase = container.resolve('addTodoUseCase');
 const requestsService = container.resolve('requestService');
 const middyHandler = container.resolve('middyHandler');
 
-console.log(addTodoUseCase);
-
-console.log(requestsService);
-
 const baseHandler = async (event) => {
   
     const { name } = event.body;   

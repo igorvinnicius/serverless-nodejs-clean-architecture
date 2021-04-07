@@ -3,8 +3,8 @@ const DuplicateError = require('../../../errors/duplicateError');
 
 module.exports = class AddTodoUseCase {
 
-    constructor(dependencies) {
-        this.todosRepository = dependencies.todosRepository;
+    constructor(todosRepository) {
+        this.todosRepository = todosRepository;
     }
 
     async execute(addTodoInput) {               
