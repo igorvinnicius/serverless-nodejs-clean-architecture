@@ -21,7 +21,7 @@ provider:
 
 functions:
   createTodo:
-    handler: src/serverless/todos/createTodo/createTodo.handler
+    handler: src/adapters/lambdas/todos/createTodo/createTodo.handler
     events:
       - http:
           path: todos
