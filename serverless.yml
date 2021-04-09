@@ -19,6 +19,14 @@ provider:
         - "arn:aws:dynamodb:eu-west-3:*:table/todos"
         - "arn:aws:dynamodb:eu-west-3:*:table/todos/index/*"
 
+layers:
+  nodeModules:
+    path: layers/node_modules
+
+package:
+  exclude:
+    - 'node_modules/**'
+
 functions:
   createTodo:
     handler: src/adapters/lambdas/todos/createTodo/createTodo.handler
@@ -27,6 +35,8 @@ functions:
           path: todos
           method: post
           cors: true
+    layers:
+      - { Ref: NodeModulesLambdaLayer }
 
 resources:
   Resources:

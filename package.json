@@ -2,7 +2,8 @@
   "name": "todos-api",
   "description": "",
   "scripts": {
-    "test": "mocha 'test/**/*.js' --recursive --timeout 8000"
+    "test": "mocha 'test/**/*.js' --recursive --timeout 8000",   
+    "deploy": "./deploy.sh"
   },
   "devDependencies": {
     "chai": "^4.3.4",
