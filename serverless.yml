@@ -24,8 +24,19 @@ layers:
     path: layers/node_modules
 
 package:
+  individually: true
   exclude:
     - 'node_modules/**'
+    - 'test/**'
+    - 'src/**'
+    - 'package.json'
+    - 'package-lock.json'
+    - 'deploy.sh'
+    - 'README.md'
+  include:
+    - src/frameworks/dependency_injection/container.js
+    - src/application/errors/**
+    - src/adapters/requests/**
 
 functions:
   createTodo:
@@ -37,6 +48,12 @@ functions:
           cors: true
     layers:
       - { Ref: NodeModulesLambdaLayer }
+    package:
+      include:
+        - src/adapters/lambdas/todos/createTodo/**
+        - src/application/use_cases/todos/addTodo/**        
+        - src/frameworks/persistence/dynamoDB/todosRepository.js        
+        - src/entities/todo.js
 
 resources:
   Resources:
