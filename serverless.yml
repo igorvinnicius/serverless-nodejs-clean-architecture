@@ -24,7 +24,7 @@ layers:
     path: layers/node_modules
 
 package:
-  individually: true
+  
   exclude:
     - 'node_modules/**'
     - 'test/**'
@@ -49,6 +49,7 @@ functions:
     layers:
       - { Ref: NodeModulesLambdaLayer }
     package:
+      individually: true
       include:
         - src/adapters/lambdas/todos/createTodo/**
         - src/application/use_cases/todos/addTodo/**        
