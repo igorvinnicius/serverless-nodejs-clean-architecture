@@ -46,4 +46,22 @@ module.exports = class TodosRepository {
             return JSON.stringify(err, null, 2);
         });      
     }
+
+    async getAll() {
+        var params = {
+            TableName: this.tableName              
+        };
+        
+        return  await this.dynamoDb.scan(params)
+        .promise()
+        .then((data) => {            
+            console.log('Data from scan...');
+            console.log(data);
+            return data.Count == 0 ? null : data.Items;                
+        })
+        .catch((err) => {
+            console.error("Unable to query. Error JSON:", JSON.stringify(err, null, 2));
+            return JSON.stringify(err, null, 2);
+        }); 
+    }
 }

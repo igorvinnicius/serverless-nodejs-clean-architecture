@@ -56,6 +56,24 @@ functions:
         - src/frameworks/persistence/dynamoDB/todosRepository.js        
         - src/entities/todo.js
 
+  getTodos:
+    handler: src/adapters/lambdas/todos/getTodos/getTodos.handler
+    events:
+      - http:
+          path: todos
+          method: get
+          cors: true
+    layers:
+      - { Ref: NodeModulesLambdaLayer }
+    package:
+      individually: true
+      include:
+        - src/adapters/lambdas/todos/getTodos/**
+        - src/application/use_cases/todos/getTodos/**
+        - src/application/use_cases/todos/addTodo/**     
+        - src/frameworks/persistence/dynamoDB/todosRepository.js        
+        - src/entities/todo.js
+
 resources:
   Resources:
     TodosDynamoDbTable:

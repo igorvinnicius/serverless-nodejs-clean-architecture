@@ -5,11 +5,15 @@ const validator = require('@middy/validator');
 
 const middyHandler = (baseHandler, inputSchema) => {    
 
-    return handler = middy(baseHandler)
-    .use(jsonBodyParser())
-    .use(validator({inputSchema}))
+    const handler = middy(baseHandler)
+    .use(jsonBodyParser())    
     .use(httpErrorHandler());
 
+    if(inputSchema){
+        handler.use(validator({inputSchema}));
+    }
+
+    return handler;
 };
 
 module.exports = middyHandler;
