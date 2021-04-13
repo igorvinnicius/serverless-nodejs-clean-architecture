@@ -1,6 +1,6 @@
 'use strict';
 
-const container = require('../../../../frameworks/dependency_injection/container');
+const container = require('../../../../frameworks/dependency_injection/container').forGetTodosUseCase();
 
 const getTodosUseCase = container.resolve('getTodosUseCase');
 const requestsService = container.resolve('requestService');

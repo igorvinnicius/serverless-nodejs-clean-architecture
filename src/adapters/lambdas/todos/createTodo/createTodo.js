@@ -2,7 +2,7 @@
 
 const AddTodoInput = require ('../../../../application/use_cases/todos/addTodo/addTodoInput');
 const inputSchema = require('./inputSchema');
-const container = require('../../../../frameworks/dependency_injection/container');
+const container = require('../../../../frameworks/dependency_injection/container').forAddTodosUseCase();
 
 const addTodoUseCase = container.resolve('addTodoUseCase');
 const requestsService = container.resolve('requestService');
