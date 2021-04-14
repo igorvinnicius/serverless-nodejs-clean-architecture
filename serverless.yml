@@ -27,19 +27,7 @@ layers:
     path: layers/node_modules
 
 package:
-  individually: true
-  # exclude:
-  #   - 'node_modules/**'
-  #   - 'test/**'
-  #   - 'src/**'
-  #   - 'package.json'
-  #   - 'package-lock.json'
-  #   - 'deploy.sh'
-  #   - 'README.md'
-  # include:
-  #   - src/frameworks/dependency_injection/container.js
-  #   - src/application/errors/**
-  #   - src/adapters/requests/**
+  individually: true 
 
 functions:
   createTodo:
@@ -52,14 +40,7 @@ functions:
     layers:
       - { Ref: NodeModulesLambdaLayer }
     package:
-      individually: true
-      # package:
-    #   individually: true
-    #   include:
-    #     - src/adapters/lambdas/todos/createTodo/**
-    #     - src/application/use_cases/todos/addTodo/**        
-    #     - src/frameworks/persistence/dynamoDB/todosRepository.js        
-    #     - src/entities/todo.js
+      individually: true     
 
   getTodos:
     handler: src/adapters/lambdas/todos/getTodos/getTodos.handler
@@ -72,14 +53,7 @@ functions:
       - { Ref: NodeModulesLambdaLayer }
     package:
       individually: true
-    # package:
-    #   individually: true
-    #   include:
-    #     - src/adapters/lambdas/todos/getTodos/**
-    #     - src/application/use_cases/todos/getTodos/**  
-    #     - src/frameworks/persistence/dynamoDB/todosRepository.js        
-    #     - src/entities/todo.js
-
+    
 resources:
   Resources:
     TodosDynamoDbTable:
