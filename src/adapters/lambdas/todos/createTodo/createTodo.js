@@ -2,11 +2,11 @@
 
 const AddTodoInput = require ('../../../../application/use_cases/todos/addTodo/addTodoInput');
 const inputSchema = require('./inputSchema');
-const container = require('../../../../frameworks/dependency_injection/container').forAddTodosUseCase();
+const container = require('./container');
 
-const addTodoUseCase = container.resolve('addTodoUseCase');
-const requestsService = container.resolve('requestService');
-const middyHandler = container.resolve('middyHandler');
+const addTodoUseCase = container.get('addTodoUseCase');
+const requestsService = container.get('requestService');
+const middyHandler = container.get('middyHandler');
 
 const baseHandler = async (event) => {
   

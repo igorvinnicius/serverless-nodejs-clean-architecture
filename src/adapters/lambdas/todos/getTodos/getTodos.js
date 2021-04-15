@@ -1,12 +1,12 @@
 'use strict';
 
-const container = require('../../../../frameworks/dependency_injection/container').forGetTodosUseCase();
+const container = require('./container');
 
-const getTodosUseCase = container.resolve('getTodosUseCase');
-const requestsService = container.resolve('requestService');
-const middyHandler = container.resolve('middyHandler');
+const getTodosUseCase = container.get('getTodosUseCase');
+const requestsService = container.get('requestService');
+const middyHandler = container.get('middyHandler');
 
-const baseHandler = async (event) => {
+const baseHandler = async () => {
 
     return await requestsService.handle(async () => {
         
