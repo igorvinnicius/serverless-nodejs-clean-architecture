@@ -26,9 +26,6 @@ layers:
   nodeModules:
     path: layers/node_modules
 
-package:
-  individually: true 
-
 functions:
   createTodo:
     handler: src/adapters/lambdas/todos/createTodo/createTodo.handler
