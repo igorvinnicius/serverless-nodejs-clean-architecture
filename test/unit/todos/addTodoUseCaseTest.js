@@ -1,17 +1,16 @@
 const expect = require('chai');
 const sinon = require('sinon');
 
-
 const Todo = require('../../../src/entities/todo.js');
 const AddTodoUseCase = require('../../../src/application/use_cases/todos/addTodo/addTodoUseCase.js');
 const AddTodoInput = require('../../../src/application/use_cases/todos/addTodo/addTodoInput.js');
-const TodosRepository = require('../../../src/application/contracts/repositories/todosRepository.js');
+
 
 describe('Add Todo Use Case', () => {
 
-    it('should add a todo', async () => {
-
-        const todosRepository = new TodosRepository();
+    it('should add a todo', async () => {        
+        
+        const todosRepository = { getByName:() => {}, add:() => {} };
 
         const expectedTodos = [ new Todo('Software Engeneering') ];
 
@@ -30,14 +29,15 @@ describe('Add Todo Use Case', () => {
         await addTodoUseCase.execute(addTodoInput);
 
         expect.expect(todosRepository.add.called).to.be.true;
-        expect.expect(expectedTodos).to.have.length(2);
+        expect.expect(expectedTodos).to.have.length(2);        
+
     });
 
     it('should throw an error when todo name already exists', async () => {
         
-        try {
+        try {                       
 
-            const todosRepository = new TodosRepository();
+            const todosRepository = { getByName:() => {}};
 
             const todo = new Todo('Task1');
 
@@ -55,7 +55,7 @@ describe('Add Todo Use Case', () => {
         catch (err) {            
             expect.expect(err.name).to.be.equal('DuplicateError');
             expect.expect(err.message).to.be.equal('Todo name already exists.');
-        }
+        }        
        
     });
 

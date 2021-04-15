@@ -2,14 +2,13 @@ const expect = require('chai');
 const sinon = require('sinon');
 
 const GetTodosUseCase = require('../../../src/application/use_cases/todos/getTodos/getTodosUseCase');
-const TodosRepository = require ('../../../src/application/contracts/repositories/todosRepository');
 const Todo = require('../../../src/entities/todo');
 
 describe('Get Todos Use Case', () => {
 
     it('should return a list of todos', async () => {
 
-        const todosRepository = new TodosRepository();
+        const todosRepository = { getAll:() => {} }
 
         const expectedTodos = [new Todo('Task 1'), new Todo('Task 2')]
 
