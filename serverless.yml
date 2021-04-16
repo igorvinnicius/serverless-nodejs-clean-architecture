@@ -53,6 +53,18 @@ functions:
       - { Ref: NodeModulesLambdaLayer }
     package:
       individually: true
+
+  getTodo:
+    handler: src/adapters/lambdas/todos/getTodo/getTodo.handler
+    events:
+      - http:
+          path: todos/{id}
+          method: get
+          cors: true
+    layers:
+      - { Ref: NodeModulesLambdaLayer }
+    package:
+      individually: true
     
 resources:
   Resources:

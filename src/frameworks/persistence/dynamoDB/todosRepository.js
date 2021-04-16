@@ -60,8 +60,28 @@ module.exports = class TodosRepository {
             return data.Count == 0 ? null : data.Items;                
         })
         .catch((err) => {
-            console.error("Unable to query. Error JSON:", JSON.stringify(err, null, 2));
+            console.error("Unable to scan. Error JSON:", JSON.stringify(err, null, 2));
             return JSON.stringify(err, null, 2);
         }); 
+    }
+
+    async getById(id) {
+        var params = {
+            TableName: this.tableName  ,
+            Key: {
+                id: id,
+            }            
+        };
+        
+        return  await this.dynamoDb.get(params)
+        .promise()
+        .then((data) => {
+            console.log(data);
+            return  data.Item == null ? null : data.Item;
+        })
+        .catch((err) => {
+            console.error("Unable to get. Error JSON:", JSON.stringify(err, null, 2));
+            return JSON.stringify(err, null, 2);
+        });
     }
 }
