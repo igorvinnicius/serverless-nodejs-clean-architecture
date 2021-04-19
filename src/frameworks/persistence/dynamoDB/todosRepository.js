@@ -54,9 +54,7 @@ module.exports = class TodosRepository {
         
         return  await this.dynamoDb.scan(params)
         .promise()
-        .then((data) => {            
-            console.log('Data from scan...');
-            console.log(data);
+        .then((data) => {
             return data.Count == 0 ? null : data.Items;                
         })
         .catch((err) => {
@@ -75,8 +73,7 @@ module.exports = class TodosRepository {
         
         return  await this.dynamoDb.get(params)
         .promise()
-        .then((data) => {
-            console.log(data);
+        .then((data) => {            
             return  data.Item == null ? null : data.Item;
         })
         .catch((err) => {
@@ -104,8 +101,7 @@ module.exports = class TodosRepository {
         
         return  await this.dynamoDb.update(params)
         .promise()
-        .then((data) => {
-            console.log(data);
+        .then((data) => {            
             return  data.Attributes == null ? null : data.Attributes;
         })
         .catch((err) => {
