@@ -65,6 +65,18 @@ functions:
       - { Ref: NodeModulesLambdaLayer }
     package:
       individually: true
+
+  updateTodo:
+    handler: src/adapters/lambdas/todos/updateTodo/updateTodo.handler
+    events:
+      - http:
+          path: todos
+          method: put
+          cors: true
+    layers:
+      - { Ref: NodeModulesLambdaLayer }
+    package:
+      individually: true
     
 resources:
   Resources:

@@ -67,7 +67,7 @@ module.exports = class TodosRepository {
 
     async getById(id) {
         var params = {
-            TableName: this.tableName  ,
+            TableName: this.tableName,
             Key: {
                 id: id,
             }            
@@ -81,6 +81,35 @@ module.exports = class TodosRepository {
         })
         .catch((err) => {
             console.error("Unable to get. Error JSON:", JSON.stringify(err, null, 2));
+            return JSON.stringify(err, null, 2);
+        });
+    }
+
+    async update(todo) {
+
+        var params = {
+            TableName: this.tableName,
+            Key: {
+                id: todo.id,
+            },
+            ExpressionAttributeNames: {
+                '#name': 'name',
+            },
+            ExpressionAttributeValues: {
+            ':name': todo.name,  
+            },
+            UpdateExpression: 'SET #name = :name',
+            ReturnValues: 'ALL_NEW'        
+        };
+        
+        return  await this.dynamoDb.update(params)
+        .promise()
+        .then((data) => {
+            console.log(data);
+            return  data.Attributes == null ? null : data.Attributes;
+        })
+        .catch((err) => {
+            console.error("Unable to update. Error JSON:", JSON.stringify(err, null, 2));
             return JSON.stringify(err, null, 2);
         });
     }
