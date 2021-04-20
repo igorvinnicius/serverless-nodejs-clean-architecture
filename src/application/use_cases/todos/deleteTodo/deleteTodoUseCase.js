@@ -14,6 +14,6 @@ module.exports = class DeleteTodoUseCase{
             throw new NotFoundError('Todo not found.');
         }
         
-        return await this.todosRepository.delete(todo);
+        return await this.todosRepository.delete(todo.id);
     }
 }

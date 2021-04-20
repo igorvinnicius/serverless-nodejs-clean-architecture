@@ -10,12 +10,14 @@ module.exports = class RequestsService {
                 statusCode: 200,
                 body: JSON.stringify({
                     success: true,
-                    data: result         
+                    data: result ? result : null       
                 })
             };
 
         } catch (error) {            
             
+            console.log(error);
+
             return {
                 statusCode: error.statusCode,
                 body: JSON.stringify({
@@ -23,10 +25,11 @@ module.exports = class RequestsService {
                     statusCode: error.statusCode,
                     error: {
                         name: error.name,
-                        message: error.message
+                        message: error.message,
+                        details: error.data ? error.data : null            
                     }
                 })
-            };
+            };           
         }        
     }
 

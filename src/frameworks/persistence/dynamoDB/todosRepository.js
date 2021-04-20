@@ -1,3 +1,5 @@
+const DynamoDBError = require('./dynamoDbError');
+
 module.exports = class TodosRepository {
 
     constructor(AWS, uuid) {
@@ -21,8 +23,7 @@ module.exports = class TodosRepository {
             return todo;
         })
         .catch((err) => {
-            console.error("Unable to add item. Error JSON:", JSON.stringify(err, null, 2));
-            return JSON.stringify(err, null, 2);
+            throw new DynamoDBError(err);
         });         
     }
 
@@ -42,8 +43,7 @@ module.exports = class TodosRepository {
             return data.Count == 0 ? null : data.Items[0];                
         })
         .catch((err) => {
-            console.error("Unable to query. Error JSON:", JSON.stringify(err, null, 2));
-            return JSON.stringify(err, null, 2);
+            throw new DynamoDBError(err);
         });      
     }
 
@@ -58,8 +58,7 @@ module.exports = class TodosRepository {
             return data.Count == 0 ? null : data.Items;                
         })
         .catch((err) => {
-            console.error("Unable to scan. Error JSON:", JSON.stringify(err, null, 2));
-            return JSON.stringify(err, null, 2);
+            throw new DynamoDBError(err);
         }); 
     }
 
@@ -77,8 +76,7 @@ module.exports = class TodosRepository {
             return  data.Item == null ? null : data.Item;
         })
         .catch((err) => {
-            console.error("Unable to get. Error JSON:", JSON.stringify(err, null, 2));
-            return JSON.stringify(err, null, 2);
+            throw new DynamoDBError(err);
         });
     }
 
@@ -105,8 +103,7 @@ module.exports = class TodosRepository {
             return  data.Attributes == null ? null : data.Attributes;
         })
         .catch((err) => {
-            console.error("Unable to update. Error JSON:", JSON.stringify(err, null, 2));
-            return JSON.stringify(err, null, 2);
+            throw new DynamoDBError(err);
         });
     }
 
@@ -115,18 +112,17 @@ module.exports = class TodosRepository {
         var params = {
             TableName: this.tableName,
             Key: {
-                id: id,
+                id: id
             }            
         };
         
         return  await this.dynamoDb.delete(params)
         .promise()
         .then((data) => {            
-            return  data;
+            return;
         })
-        .catch((err) => {
-            console.error("Unable to delete. Error JSON:", JSON.stringify(err, null, 2));
-            return err;
+        .catch((err) => {            
+            throw new DynamoDBError(err);
         });
     }
 }
