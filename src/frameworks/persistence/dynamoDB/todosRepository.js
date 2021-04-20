@@ -109,4 +109,24 @@ module.exports = class TodosRepository {
             return JSON.stringify(err, null, 2);
         });
     }
+
+    async delete(id) {
+
+        var params = {
+            TableName: this.tableName,
+            Key: {
+                id: id,
+            }            
+        };
+        
+        return  await this.dynamoDb.delete(params)
+        .promise()
+        .then((data) => {            
+            return  data;
+        })
+        .catch((err) => {
+            console.error("Unable to delete. Error JSON:", JSON.stringify(err, null, 2));
+            return err;
+        });
+    }
 }
