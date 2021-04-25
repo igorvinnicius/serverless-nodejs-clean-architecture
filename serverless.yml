@@ -102,7 +102,13 @@ resources:
             AttributeType: S
           -
             AttributeName: name
-            AttributeType: S      
+            AttributeType: S
+          -
+            AttributeName: created_at
+            AttributeType: S
+          -
+            AttributeName: updated_at
+            AttributeType: S
         KeySchema:
           -
             AttributeName: id
